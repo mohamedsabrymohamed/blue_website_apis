@@ -172,4 +172,18 @@ function get_single_job($conn,$job_id)
     }
     return false;
 }
+
+/////////////////////////////// all careers /////////////////////
+function get_all_careers($conn)
+{
+    $sqli = "select c.id,c.job_title,c.job_desc,c.start_data,c.end_date,cat.category_name,u.username,c.created_date FROM careers as c , career_categories as cat, users as u";
+    $result = mysqli_query($conn,$sqli);
+    $result_data = array();
+    while($row = mysqli_fetch_assoc($result))
+    {
+        $result_data[] = $row;
+    }
+    return $result_data;
+
+}
 ?>
