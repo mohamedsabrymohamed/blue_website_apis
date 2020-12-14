@@ -176,7 +176,12 @@ function get_single_job($conn,$job_id)
 /////////////////////////////// all careers /////////////////////
 function get_all_careers($conn)
 {
-    $sqli = "select c.id,c.job_title,c.job_desc,c.start_data,c.end_date,cat.category_name,u.username,c.created_date FROM careers as c , career_categories as cat, users as u";
+    $sqli = "select c.id,c.job_title,c.job_desc,c.start_data,c.end_date,cat.category_name,u.username,c.created_date 
+            FROM careers as c , career_categories as cat, users as u
+            where c.cat_id = cat.id
+            and 
+            c.created_by = u.id
+            ";
     $result = mysqli_query($conn,$sqli);
     $result_data = array();
     while($row = mysqli_fetch_assoc($result))
