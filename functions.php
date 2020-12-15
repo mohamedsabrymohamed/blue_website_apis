@@ -264,4 +264,17 @@ function add_new_career($conn,$data)
     }
 }
 
+
+function update_career($conn,$data,$where)
+{
+    $table = 'careers';
+    $update = update($data,$where,$conn,$table);
+    if($update)
+    {
+        return true;
+    }else{
+        return false;
+    }
+}
+
 ?>
