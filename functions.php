@@ -5,6 +5,9 @@ require_once 'PHPMailer/src/Exception.php';
 require_once 'PHPMailer/src/PHPMailer.php';
 require_once 'PHPMailer/src/SMTP.php';
 //////////////////////////////////////////////functions/////////////////////////////////////////////////////
+
+/////////////////////////////// build insert query /////////////////////
+
 function build_insert_query(array $data, $conn, $table)
 {
     $query_string = "";
@@ -29,16 +32,20 @@ function build_insert_query(array $data, $conn, $table)
     }
     return $query_string;
 }
+/////////////////////////////// Insert /////////////////////
 
 function insert(array $data, $conn, $table)
 {
     $insert_query = build_insert_query($data, $conn, $table);
     if ($insert_query and !empty($insert_query)) {
-        return mysqli_query($conn, $insert_query);
+         mysqli_query($conn, $insert_query);
+        return true;
     }
     return false;
 
 }
+
+/////////////////////////////// build update query /////////////////////
 
 function build_update_query($data, $where, $conn, $table)
 {
@@ -54,6 +61,8 @@ function build_update_query($data, $where, $conn, $table)
     $query_string = "UPDATE `" . $table . "` SET " . $query_string . " where " . $where;
     return $query_string;
 }
+
+/////////////////////////////// Update /////////////////////
 
 function update(array $data, $where, $conn, $table)
 {
@@ -241,6 +250,18 @@ function get_all_careers($conn)
 
 }
 
+/////////////////////////////// add new career /////////////////////
 
+function add_new_career($conn,$data)
+{
+    $table = 'careers';
+    $insert = insert($data,$conn,$table);
+    if($insert)
+    {
+        return true;
+    }else{
+        return false;
+    }
+}
 
 ?>
