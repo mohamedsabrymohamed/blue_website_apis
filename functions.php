@@ -32,13 +32,14 @@ function build_insert_query(array $data, $conn, $table)
     }
     return $query_string;
 }
+
 /////////////////////////////// Insert /////////////////////
 
 function insert(array $data, $conn, $table)
 {
     $insert_query = build_insert_query($data, $conn, $table);
     if ($insert_query and !empty($insert_query)) {
-         mysqli_query($conn, $insert_query);
+        mysqli_query($conn, $insert_query);
         return true;
     }
     return false;
@@ -235,12 +236,13 @@ function get_single_job($conn, $job_id)
 /////////////////////////////// all careers /////////////////////
 function get_all_careers($conn)
 {
-    $sqli = "select c.id,c.job_title,c.job_desc,c.start_data,c.end_date,cat.category_name,u.username,c.created_date 
+    $sqli = "select c.id,c.job_title,c.job_desc,c.start_date,c.end_date,cat.category_name,u.username,c.created_date 
             FROM careers as c , career_categories as cat, users as u
             where c.cat_id = cat.id
             and 
             c.created_by = u.id
             ";
+
     $result = mysqli_query($conn, $sqli);
     $result_data = array();
     while ($row = mysqli_fetch_assoc($result)) {
@@ -252,27 +254,109 @@ function get_all_careers($conn)
 
 /////////////////////////////// add new career /////////////////////
 
-function add_new_career($conn,$data)
+function add_new_career($conn, $data)
 {
     $table = 'careers';
-    $insert = insert($data,$conn,$table);
-    if($insert)
-    {
+    $insert = insert($data, $conn, $table);
+    if ($insert) {
         return true;
-    }else{
+    } else {
         return false;
     }
 }
 
 
-function update_career($conn,$data,$where)
+function update_career($conn, $data, $where)
 {
     $table = 'careers';
-    $update = update($data,$where,$conn,$table);
-    if($update)
-    {
+    $update = update($data, $where, $conn, $table);
+    if ($update) {
         return true;
-    }else{
+    } else {
+        return false;
+    }
+}
+
+/////////////////////////////// all categories /////////////////////
+
+function get_all_categories($conn)
+{
+    $sqli = "select * FROM career_categories ";
+    $result = mysqli_query($conn, $sqli);
+    $result_data = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $result_data[] = $row;
+    }
+    return $result_data;
+
+}
+
+/////////////////////////////// add new category /////////////////////
+
+function add_new_category($conn, $data)
+{
+    $table = 'career_categories';
+    $insert = insert($data, $conn, $table);
+    if ($insert) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+/////////////////////////////// all countries /////////////////////
+
+function get_all_countries($conn)
+{
+    $sqli = "select id,country_name FROM countries";
+    $result = mysqli_query($conn, $sqli);
+    $result_data = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $result_data[] = $row;
+    }
+    return $result_data;
+
+}
+
+/////////////////////////  file upload /////////////////////////////
+function file_upload($file, $folder)
+{
+    $fileName = $_FILES[$file]["name"];
+    $fileSize = $_FILES[$file]["size"] / 1024;
+    $fileType = $_FILES[$file]["type"];
+    $fileTmpName = $_FILES[$file]["tmp_name"];
+
+    if ($fileType == "application/msword" || $fileType == "application/pdf" || $fileType = "application/vnd.openxmlformats-officedocument.wordprocessing") {
+        if ($fileSize <= 5120) {
+
+            //New file name
+            $random = rand(1111, 9999);
+            $newFileName = $random . $fileName;
+
+            //File upload path
+            $uploadPath = "uploads/" . $folder . "/" . $newFileName;
+
+            //function for upload file
+            if (move_uploaded_file($fileTmpName, $uploadPath)) {
+                return $newFileName;
+            }
+        } else {
+            echo json_encode("Maximum upload file size limit is 5 Mb");
+        }
+    } else {
+        echo json_encode("You can only upload a Word doc or pdf file.");
+    }
+    return false;
+}
+
+///////////////////////// submit applications //////////////////////
+function submit_application($conn, $data)
+{
+    $table = 'applications';
+    $insert = insert($data, $conn, $table);
+    if ($insert) {
+        return true;
+    } else {
         return false;
     }
 }

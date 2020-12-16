@@ -2,7 +2,7 @@
 require_once 'functions.php';
 
 
-$email = $_POST['email'];
+$email = $_POST['uEmail'];
 $subject = 'Newsletter Form';
 $txt = " Email: ".$email;
 

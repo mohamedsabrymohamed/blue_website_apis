@@ -1,7 +1,8 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$dbpass = "123456";
+//$dbpass = "123456";
+$dbpass = "";
 $dbname = "blue_api";
 $conn = new mysqli($servername, $username, $dbpass, $dbname);
 if (!$conn) {
@@ -9,6 +10,5 @@ if (!$conn) {
 } else {
     mysqli_set_charset($conn, "utf8");
 }
-
 
 ?>
