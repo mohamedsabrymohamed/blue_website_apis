@@ -164,7 +164,7 @@ function retrieve_email_address($conn)
     $result = mysqli_query($conn, $sqli);
     $result_data = mysqli_fetch_assoc($result);
     if ($result_data['id'] and !empty($result_data['id'])) {
-        return $result_data;
+        return $result_data['param_value'];
     }
     return false;
 }
@@ -173,36 +173,44 @@ function retrieve_email_address($conn)
 
 function send_email($conn, $subject, $txt)
 {
-    $phpmailer = new \PHPMailer\PHPMailer\PHPMailer(true);
-
+//    $phpmailer = new \PHPMailer\PHPMailer\PHPMailer(true);
     $site_settings_data = retrieve_email_address($conn);
+    $email_address = $site_settings_data;
 
-    try {
-        $to = $site_settings_data['email_address'];
-        $from = $site_settings_data['email_address'];
+//    try {
+//        $to = $email_address;
+//        $from = $email_address;
+//
+//        //Server settings
+//        $phpmailer->SMTPDebug = \PHPMailer\PHPMailer\SMTP::DEBUG_SERVER;
+//        $phpmailer->isSMTP();
+//        $phpmailer->Host = 'blueholding.co.uk';
+//        $phpmailer->SMTPAuth = true;
+//        $phpmailer->Username = 'info@blueholding.co.uk';
+//        $phpmailer->Password = 'w_@a,$7y;8Hv';
+//        $phpmailer->SMTPSecure = \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
+//        $phpmailer->Port = 465;
+//
+//        $phpmailer->addAddress($to);
+//        $phpmailer->setFrom($from);
+//        $phpmailer->Subject = $subject;
+//        $phpmailer->isHTML(true);
+//        $phpmailer->Body = $txt;
+//
+//        $phpmailer->Send();
+//
+//        echo json_encode(array('data_success' => '1'));
+//    } catch (Exception $e) {
+//        echo json_encode(array('data_success' => '0'));
+//
+//    }
 
-        //Server settings
-        $phpmailer->SMTPDebug = \PHPMailer\PHPMailer\SMTP::DEBUG_SERVER;
-        $phpmailer->isSMTP();
-        $phpmailer->Host = 'mail.insights-marketing.co.uk';
-        $phpmailer->SMTPAuth = true;
-        $phpmailer->Username = 'info@insights-marketing.co.uk';
-        $phpmailer->Password = '-{+bV;qL3_af';
-        $phpmailer->SMTPSecure = \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
-        $phpmailer->Port = 465;
 
-        $phpmailer->addAddress($to);
-        $phpmailer->setFrom($from);
-        $phpmailer->Subject = $subject;
-        $phpmailer->isHTML(true);
-        $phpmailer->Body = $txt;
-
-        $phpmailer->Send();
-
+    if(mail($email_address,$subject,$txt))
+    {
         echo json_encode(array('data_success' => '1'));
-    } catch (Exception $e) {
+    }else{
         echo json_encode(array('data_success' => '0'));
-
     }
 
 }

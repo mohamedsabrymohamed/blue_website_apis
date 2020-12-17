@@ -18,7 +18,7 @@ $data['address'] = $_POST['appAddress'];
 $data['linkedin_link'] = $_POST['appLinkedIn'];
 $data['behance_link'] = $_POST['appBehance'];
 $data['comment'] = $_POST['appMessage'];
-$data['job_id'] = $_POST['job_id'];
+$data['job_id'] = $_POST['id'];
 
 if (!empty($_FILES['appUploadCV'])) {
     $resume = file_upload("appUploadCV", "resume");
