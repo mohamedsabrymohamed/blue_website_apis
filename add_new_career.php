@@ -10,11 +10,10 @@ $data['end_date'] = $_POST['end_date'];
 $data['created_by'] = @$_SESSION['user_id'];
 $data['created_date'] = DATE('Y-m-d H:i:s');
 
-$insert_data = add_new_career($conn,$data);
-if($insert_data)
-{
-    echo json_encode(array('data_success'=>'1'));
-}else{
-    echo json_encode(array('data_success'=>'0'));
+$insert_data = add_new_career($conn, $data);
+if ($insert_data) {
+    echo json_encode(array('data_success' => '1'));
+} else {
+    echo json_encode(array('data_success' => '0'));
 }
 

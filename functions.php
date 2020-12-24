@@ -149,6 +149,7 @@ function get_all_site_settings_params($conn)
 function update_site_settings($conn, $param_name, $param_value)
 {
     $sqli = "update site_settings set param_value = '" . $param_value . "' where param_name = '" . $param_name . "'";
+
     $result = mysqli_query($conn, $sqli);
     if ($result) {
         return json_encode(array('data_success' => '1'));
@@ -206,10 +207,9 @@ function send_email($conn, $subject, $txt)
 //    }
 
 
-    if(mail($email_address,$subject,$txt))
-    {
+    if (mail($email_address, $subject, $txt)) {
         echo json_encode(array('data_success' => '1'));
-    }else{
+    } else {
         echo json_encode(array('data_success' => '0'));
     }
 
