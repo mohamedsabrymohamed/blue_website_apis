@@ -3,7 +3,8 @@ require_once 'functions.php';
 
 $success = 0;
 if ($_POST) {
-    $success = update_site_settings($conn, 'email_address', $_POST['email_address']);
+    $success = update_site_settings($conn, 'info_email_address', $_POST['info_email_address']);
+    $success = update_site_settings($conn, 'hr_email_address', $_POST['hr_email_address']);
     $success = update_site_settings($conn, 'phone_number_1', $_POST['phone_number_1']);
     $success = update_site_settings($conn, 'phone_number_2', $_POST['phone_number_2']);
     $success = update_site_settings($conn, 'phone_number_3', $_POST['phone_number_3']);
