@@ -232,7 +232,7 @@ function get_all_jobs_title($conn)
 /////////////////////////////// single job /////////////////////
 function get_single_job($conn, $job_id)
 {
-    $sqli = "select id,job_title,job_desc,start_date,end_date FROM careers where id = " . $job_id;
+    $sqli = "select id,job_title,job_desc,start_date,end_date,cat_id FROM careers where id = " . $job_id;
     $result = mysqli_query($conn, $sqli);
     $result_data = mysqli_fetch_assoc($result);
     if ($result_data['id'] and !empty($result_data['id'])) {
@@ -368,5 +368,28 @@ function submit_application($conn, $data)
         return false;
     }
 }
+
+
+
+/////////////////////////////// all applications /////////////////////
+function get_all_applications($conn)
+{
+    $sqli = "SELECT app.full_name,app.`date_of_birth`,app.email,app.phone,contr.country_name,app.address,app.linkedin_link,app.behance_link,concat('https://blueholding.co.uk/blue_website_apis/uploads/resume/',app.resume),concat('https://blueholding.co.uk/blue_website_apis/uploads/portofolio/',app.`portofolio`),app.comment,c.job_title
+                FROM `applications`  app, careers as c , countries as contr
+                WHERE 
+                app.country_id = contr.id
+                AND
+                app.job_id = c.id
+                ";
+
+    $result = mysqli_query($conn, $sqli);
+    $result_data = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $result_data[] = $row;
+    }
+    return $result_data;
+
+}
+
 
 ?>

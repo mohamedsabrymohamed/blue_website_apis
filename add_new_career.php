@@ -7,7 +7,7 @@ $data['job_desc'] = $_POST['job_desc'];
 $data['cat_id'] = $_POST['cat_id'];
 $data['start_date'] = $_POST['start_date'];
 $data['end_date'] = $_POST['end_date'];
-$data['created_by'] = @$_SESSION['user_id'];
+$data['created_by'] = $_POST['user_id'];
 $data['created_date'] = DATE('Y-m-d H:i:s');
 
 $insert_data = add_new_career($conn, $data);
