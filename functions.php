@@ -374,7 +374,7 @@ function submit_application($conn, $data)
 /////////////////////////////// all applications /////////////////////
 function get_all_applications($conn)
 {
-    $sqli = "SELECT app.full_name,app.`date_of_birth`,app.email,app.phone,contr.country_name,app.address,app.linkedin_link,app.behance_link,concat('https://blueholding.co.uk/blue_website_apis/uploads/resume/',app.resume),concat('https://blueholding.co.uk/blue_website_apis/uploads/portofolio/',app.`portofolio`),app.comment,c.job_title
+    $sqli = "SELECT app.full_name,app.`date_of_birth`,app.email,app.phone,contr.country_name,app.address,app.linkedin_link,app.behance_link,concat('https://blueholding.co.uk/blue_website_apis/uploads/resume/',app.resume) as resume,concat('https://blueholding.co.uk/blue_website_apis/uploads/portofolio/',app.`portofolio`) as portofolio,app.comment,c.job_title
                 FROM `applications`  app, careers as c , countries as contr
                 WHERE 
                 app.country_id = contr.id
