@@ -161,7 +161,7 @@ function update_site_settings($conn, $param_name, $param_value)
 
 function retrieve_email_address($conn)
 {
-    $sqli = "SELECT * from  site_settings where param_name ='email_address'";
+    $sqli = "SELECT * from  site_settings where param_name ='info_email_address'";
     $result = mysqli_query($conn, $sqli);
     $result_data = mysqli_fetch_assoc($result);
     if ($result_data['id'] and !empty($result_data['id'])) {
@@ -178,33 +178,33 @@ function send_email($conn, $subject, $txt)
     $site_settings_data = retrieve_email_address($conn);
     $email_address = $site_settings_data;
 
-    try {
+//    try {
         $to = $email_address;
         $from = $email_address;
 
-        //Server settings
-        $phpmailer->SMTPDebug = \PHPMailer\PHPMailer\SMTP::DEBUG_SERVER;
-        $phpmailer->isSMTP();
-        $phpmailer->Host = 'blueholding.co.uk';
-        $phpmailer->SMTPAuth = true;
-        $phpmailer->Username = 'info@blueholding.co.uk';
-        $phpmailer->Password = 'w_@a,$7y;8Hv';
-        $phpmailer->SMTPSecure = \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
-        $phpmailer->Port = 465;
+//        //Server settings
+//        $phpmailer->SMTPDebug = \PHPMailer\PHPMailer\SMTP::DEBUG_SERVER;
+//        $phpmailer->isSMTP();
+//        $phpmailer->Host = 'blueholding.co.uk';
+//        $phpmailer->SMTPAuth = true;
+//        $phpmailer->Username = 'info@blueholding.co.uk';
+//        $phpmailer->Password = 'w_@a,$7y;8Hv';
+//        $phpmailer->SMTPSecure = \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
+//        $phpmailer->Port = 465;
+//
+//        $phpmailer->addAddress($to);
+//        $phpmailer->setFrom($from);
+//        $phpmailer->Subject = $subject;
+//        $phpmailer->isHTML(true);
+//        $phpmailer->Body = $txt;
+//
+//        $phpmailer->Send();
 
-        $phpmailer->addAddress($to);
-        $phpmailer->setFrom($from);
-        $phpmailer->Subject = $subject;
-        $phpmailer->isHTML(true);
-        $phpmailer->Body = $txt;
-
-        $phpmailer->Send();
-
-        echo json_encode(array('data_success' => '1'));
-    } catch (Exception $e) {
-        echo json_encode(array('data_success' => '0'));
-
-    }
+//        echo json_encode(array('data_success' => '1'));
+//    } catch (Exception $e) {
+//        echo json_encode(array('data_success' => '0'));
+//
+//    }
 
 
     if (mail($email_address, $subject, $txt)) {
