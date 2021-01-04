@@ -16,7 +16,7 @@ if ($_POST) {
 }
 
 if ($success) {
-    echo json_encode(array('data_suc cess' => '1'));
+    echo json_encode(array('data_success' => '1'));
 } else {
     echo json_encode(array('data_success' => '0'));
 }

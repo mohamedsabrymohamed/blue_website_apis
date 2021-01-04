@@ -39,4 +39,3 @@ if ($insert_data) {
 } else {
     echo json_encode(array('data_success' => '0'));
 }
-

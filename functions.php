@@ -388,8 +388,5 @@ function get_all_applications($conn)
         $result_data[] = $row;
     }
     return $result_data;
-
 }
-
-
 ?>
